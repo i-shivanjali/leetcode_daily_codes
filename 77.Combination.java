@@ -27,30 +27,23 @@ Constraints:
 */
 
 class Solution {
-public:
-    int n, k;
-    
-    void backtrack(int start, vector<int>& comb, vector<vector<int>>& combs){
-        if(comb.size() == k){
-            combs.push_back(comb);
-        }else{
-            for(int i = start; i <= n; ++i){
-                comb.push_back(i);
-                backtrack(i+1, comb, combs);
-                comb.pop_back();
-            }
-        }
+  public List<List<Integer>> combine(int n, int k) {
+    List<List<Integer>> ans = new ArrayList<>();
+    dfs(n, k, 1, new ArrayList<>(), ans);
+    return ans;
+  }
+
+  private void dfs(int n, int k, int s, List<Integer> path, List<List<Integer>> ans) {
+    if (path.size() == k) {
+      ans.add(new ArrayList<>(path));
+      return;
     }
-    
-    vector<vector<int>> combine(int n, int k) {
-        this->n = n;
-        this->k = k;
-        
-        vector<int> comb;
-        vector<vector<int>> combs;
-        
-        backtrack(1, comb, combs);
-        
-        return combs;
+
+    for (int i = s; i <= n; ++i) {
+      path.add(i);
+      dfs(n, k, i + 1, path, ans);
+      path.remove(path.size() - 1);
     }
-};
+  }
+}
+Console
